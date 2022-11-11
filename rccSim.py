@@ -61,8 +61,8 @@ def rccsim(G, clustSize, p, n, overlap, rho, esd, graphtype, eprob):
         return m
 
     # Determining edges to be shared across groups
-    numE = p - J  # 7
-    q = factorial(p) / (factorial(2) * factorial(p - 2))  # 45
+    numE = p - J
+    q = factorial(p) / (factorial(2) * factorial(p - 2))
     if gtype == "hub":
         numshare = math.floor(numE * overlap)
     else:
@@ -109,7 +109,6 @@ def rccsim(G, clustSize, p, n, overlap, rho, esd, graphtype, eprob):
     eig_valuesGs = []
     min_eigvalue = min(val)
     while min_eigvalue <= 0:
-        # print(f)
         g0s_list = []
         Omega0s_list = []
         Omega0s_unsymmPosDef_list = []
@@ -124,7 +123,7 @@ def rccsim(G, clustSize, p, n, overlap, rho, esd, graphtype, eprob):
                 hubs = [d[i] for i in range(len(d))]
                 # print(hubs[0])
 
-                for h in range(0, J):  # Will need clarification on this part
+                for h in range(0, J):
                     for v in hubs[h]:
                         g0s[hubs[h][1], v] = 1
                 # print(g0s)
@@ -147,7 +146,7 @@ def rccsim(G, clustSize, p, n, overlap, rho, esd, graphtype, eprob):
             rwSum = [np.sum(g0s, axis=0)]
 
             # Creating upper triangular matrix(d = True) to get the indices to be used for subsetting
-            matrix_u = np.ones((10, 10))
+            matrix_u = np.ones((p, p))
             ud_matrix = np.triu(matrix_u, k=0)
             u_bool = ud_matrix.astype(bool)
             nrows, ncols = u_bool.shape
@@ -226,7 +225,7 @@ def rccsim(G, clustSize, p, n, overlap, rho, esd, graphtype, eprob):
 
             # Forcing subject-level matrix to have similar value as group-level matrix
             rnorm = np.random.normal(0, esd, p * p)
-            rnorm_matrix = np.random.choice(rnorm, size=(10, 10))
+            rnorm_matrix = np.random.choice(rnorm, size=(p, p))
             # print(r.shape)
 
             Omegaks = np.add((gks * Omega0s), rnorm_matrix)
@@ -272,8 +271,8 @@ def rccsim(G, clustSize, p, n, overlap, rho, esd, graphtype, eprob):
     # Generating and centering subject data
     for k in range(K):
         omegaks_k = Omegaks_list[i]
-        means = np.zeros((10))
-        obs = np.random.multivariate_normal(means, np.eye(10), n, check_valid='warn')
+        means = np.zeros((p))
+        obs = np.random.multivariate_normal(means, np.eye(p) n, check_valid='warn')
         # print(obs.shape)
 
         sqrtcovs = np.array(sqrtm(np.cov(omegaks_k)))
@@ -291,13 +290,12 @@ def rccsim(G, clustSize, p, n, overlap, rho, esd, graphtype, eprob):
 sim = rccsim(G, clustSize, p, n, overlap, rho, esd, gtype, eprob)
 # print(sim)
 
-for i in sim:
-    simData = sim[0]
-    g0s = sim[1]
-    Omega0s = sim[2]
-    gks = sim[3]
-    Omegaks = sim[4]
-    Zgks = sim[5]
+simData = sim[0]
+g0s = sim[1]
+Omega0s = sim[2]
+gks = sim[3]
+Omegaks = sim[4]
+Zgks = sim[5]
 
 # Uncomment below to assess each of the outputs
 
