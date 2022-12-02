@@ -1,3 +1,4 @@
-# rccSim-python-
-part of functions needed for RCCM python library
+# rccm-python-
+
+Group of functions needed for the python version of rccm library.
 
