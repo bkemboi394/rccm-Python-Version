@@ -289,7 +289,7 @@ def rccsim(G, clustSize, p, n, overlap, rho, esd, graphtype, eprob):
 
 
 sim = rccsim(G, clustSize, p, n, overlap, rho, esd, gtype, eprob)
-# print(sim)
+
 
 simData = sim[0]
 g0s = sim[1]
