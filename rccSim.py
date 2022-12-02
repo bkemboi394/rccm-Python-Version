@@ -283,6 +283,7 @@ def rccsim(G, clustSize, p, n, overlap, rho, esd, graphtype, eprob):
         simDat.append(t)
     # print(len(simDat))
     # print(len(simDat[0]))
+
     results = (simDat, g0s_list, Omega0s_list, gks_list, Omegaks_list, Zgks)
     return results
 
